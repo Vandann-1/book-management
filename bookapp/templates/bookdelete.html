@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+
+<div class="bg-white shadow-xl rounded-2xl w-full max-w-md p-8 text-center">
+
+    <!-- Warning Icon -->
+    <div class="flex justify-center mb-4">
+        <div class="bg-red-100 text-red-600 rounded-full p-4">
+            ⚠️
+        </div>
+    </div>
+
+    <!-- Title -->
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">
+        Delete Book
+    </h2>
+
+    <!-- Message -->
+    <p class="text-gray-600 mb-6">
+        Are you sure you want to delete  
+        <span class="font-semibold text-red-600">"{{ book.title }}"</span>?
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex justify-center gap-4">
+
+        <a href="{% url 'book_list' %}"
+           class="px-5 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition font-medium">
+            Cancel
+        </a>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit"
+                class="px-5 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold shadow transition">
+                Yes, Delete
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

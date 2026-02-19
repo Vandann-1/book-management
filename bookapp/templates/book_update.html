@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add / Update Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+<div class="bg-white shadow-lg rounded-xl w-full max-w-lg p-8">
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+        {% if form.instance.pk %}
+            Update Book
+        {% else %}
+            Add Book
+        {% endif %}
+    </h2>
+
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Title</label>
+            {{ form.title }}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Author</label>
+            {{ form.author }}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Price</label>
+            {{ form.price }}
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Published Date</label>
+            {{ form.published_date }}
+        </div>
+
+        <div class="flex justify-between items-center pt-4">
+            <a href="{% url 'book_list' %}" 
+               class="text-gray-500 hover:text-gray-700 text-sm">
+                Cancel
+            </a>
+
+            <button type="submit"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg font-semibold transition">
+                Save Book
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

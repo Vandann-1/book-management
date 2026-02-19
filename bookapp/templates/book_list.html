@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen py-10 px-6">
+
+<div class="max-w-6xl mx-auto">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">
+            📚 Book Management
+        </h1>
+
+        <a href="{% url 'book_create' %}"
+           class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg shadow font-semibold transition">
+            + Add Book
+        </a>
+    </div>
+
+    <!-- Table Card -->
+    <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
+
+        <table class="min-w-full divide-y divide-gray-200">
+
+            <!-- Table Header -->
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                        Title
+                    </th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                        Author
+                    </th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                        Price
+                    </th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                        Published
+                    </th>
+                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-600 uppercase tracking-wider">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+
+            <!-- Table Body -->
+            <tbody class="bg-white divide-y divide-gray-100">
+
+                {% for book in books %}
+                <tr class="hover:bg-gray-50 transition">
+
+                    <td class="px-6 py-4 text-sm font-semibold text-gray-800">
+                        {{ book.title }}
+                    </td>
+
+                    <td class="px-6 py-4 text-sm text-gray-600">
+                        {{ book.author }}
+                    </td>
+
+                    <td class="px-6 py-4 text-sm text-indigo-600 font-medium">
+                        ₹{{ book.price }}
+                    </td>
+
+                    <td class="px-6 py-4 text-sm text-gray-500">
+                        {{ book.published_date }}
+                    </td>
+
+                    <td class="px-6 py-4 text-center space-x-2">
+
+                        <a href="{% url 'book_update' book.pk %}"
+                           class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow transition">
+                            Edit
+                        </a>
+
+                        <a href="{% url 'book_delete' book.pk %}"
+                           class="inline-block bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow transition">
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center py-10 text-gray-400">
+                        No books available. Start by adding one.
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
