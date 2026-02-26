@@ -20,3 +20,18 @@ press ctrl + w
 
 py manage.py makemigrations
 py manage.py migrate
+
+=============================security bound=============================
+8000 for django
+5531 django + react
+
+
+======================
+
+sudo apt-get install authbind
+
+sudo touch /etc/authbind/byport/80
+sudo chmod 500/etc/authbind/byport80
+sudo chown $USER /etc/authbind/byport/80
+================================================
+authbind --deep py manage.py runserver 0.0.0.0:80
