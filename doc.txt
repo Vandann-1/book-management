@@ -1,0 +1,22 @@
+sudo apt update
+sudo apt upgrade -y
+sudo apt install python3-pip python3-venv -y
+
+
+#ACTIVE
+
+python3 -m venv venv
+source venv/bon/activate
+
+
+git clone    ()
+
+pip install -r requirement.txt
+
+sudo nano settings.py
+allowed host "*"
+
+press ctrl + w
+
+py manage.py makemigrations
+py manage.py migrate
