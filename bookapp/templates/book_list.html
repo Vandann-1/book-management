@@ -4,98 +4,86 @@
     <title>Book Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen py-10 px-6">
 
-<div class="max-w-6xl mx-auto">
+<body class="bg-gradient-to-br from-rose-100 via-purple-100 to-indigo-200 min-h-screen py-12 px-6">
+
+<div class="max-w-7xl mx-auto">
 
     <!-- Header -->
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">
-            📚 Book Management
+    <div class="flex justify-between items-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-800 tracking-wide">
+            📚 My Library
         </h1>
 
         <a href="{% url 'book_create' %}"
-           class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg shadow font-semibold transition">
+           class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 
+                  rounded-xl shadow-lg font-semibold 
+                  transition duration-300 transform hover:scale-105 hover:shadow-2xl">
             + Add Book
         </a>
     </div>
 
-    <!-- Table Card -->
-    <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
+    {% if books %}
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
 
-        <table class="min-w-full divide-y divide-gray-200">
+        {% for book in books %}
+        <div class="rounded-3xl p-6 
+                    bg-gradient-to-br from-white to-indigo-50 
+                    border border-indigo-100
+                    shadow-md hover:shadow-2xl 
+                    transition duration-500 
+                    transform hover:-translate-y-3 hover:scale-[1.04]">
 
-            <!-- Table Header -->
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                        Title
-                    </th>
-                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                        Author
-                    </th>
-                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                        Price
-                    </th>
-                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
-                        Published
-                    </th>
-                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-600 uppercase tracking-wider">
-                        Actions
-                    </th>
-                </tr>
-            </thead>
+            <!-- Title -->
+            <h2 class="text-xl font-bold text-gray-800 mb-2">
+                {{ book.title }}
+            </h2>
 
-            <!-- Table Body -->
-            <tbody class="bg-white divide-y divide-gray-100">
+            <!-- Author -->
+            <p class="text-gray-600 text-sm">
+                <span class="font-semibold text-gray-700">Author:</span> {{ book.author }}
+            </p>
 
-                {% for book in books %}
-                <tr class="hover:bg-gray-50 transition">
+            <!-- Price -->
+            <p class="mt-4 text-2xl font-bold text-indigo-600">
+                ₹{{ book.price }}
+            </p>
 
-                    <td class="px-6 py-4 text-sm font-semibold text-gray-800">
-                        {{ book.title }}
-                    </td>
+            <!-- Published -->
+            <p class="text-gray-500 text-xs mt-2 mb-6">
+                Published: {{ book.published_date }}
+            </p>
 
-                    <td class="px-6 py-4 text-sm text-gray-600">
-                        {{ book.author }}
-                    </td>
+            <!-- Buttons -->
+            <div class="flex justify-between">
 
-                    <td class="px-6 py-4 text-sm text-indigo-600 font-medium">
-                        ₹{{ book.price }}
-                    </td>
+                <a href="{% url 'book_update' book.pk %}"
+                   class="bg-emerald-500 hover:bg-emerald-600 text-white 
+                          text-sm font-semibold px-4 py-2 rounded-lg 
+                          shadow transition duration-300 transform hover:scale-105">
+                    Edit
+                </a>
 
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                        {{ book.published_date }}
-                    </td>
+                <a href="{% url 'book_delete' book.pk %}"
+                   class="bg-rose-500 hover:bg-rose-600 text-white 
+                          text-sm font-semibold px-4 py-2 rounded-lg 
+                          shadow transition duration-300 transform hover:scale-105">
+                    Delete
+                </a>
 
-                    <td class="px-6 py-4 text-center space-x-2">
+            </div>
 
-                        <a href="{% url 'book_update' book.pk %}"
-                           class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow transition">
-                            Edit
-                        </a>
-
-                        <a href="{% url 'book_delete' book.pk %}"
-                           class="inline-block bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow transition">
-                            Delete
-                        </a>
-
-                    </td>
-
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center py-10 text-gray-400">
-                        No books available. Start by adding one.
-                    </td>
-                </tr>
-                {% endfor %}
-
-            </tbody>
-
-        </table>
+        </div>
+        {% endfor %}
 
     </div>
+
+    {% else %}
+        <div class="text-center py-24 text-gray-500 text-lg font-medium">
+            No books available. Start by adding one 📖
+        </div>
+    {% endif %}
 
 </div>
 
